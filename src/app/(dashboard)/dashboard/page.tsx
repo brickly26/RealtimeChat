@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { FC } from "react";
 
 const page = async ({}) => {
-  return <div>hello</div>;
+  return <div>Dashboard</div>;
 };
 
 export default page;
