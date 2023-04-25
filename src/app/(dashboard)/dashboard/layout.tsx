@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { FC, ReactNode } from "react";
 import Image from "next/image";
 import SignOutButton from "@/components/SignOutButton";
+import FriendRequestSidebarOptions from "@/components/FriendRequestSidebarOptions";
+import { fetchRedis } from "@/helpers/redis";
 
 interface LayoutProps {
   children: ReactNode;
@@ -32,6 +34,13 @@ const Layout = async ({ children }: LayoutProps) => {
 
   if (!session) notFound();
 
+  const unseenRequestCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session.user.id}:incomming_friend_requests`
+    )) as User[]
+  ).length;
+
   return (
     <div className="w-full flex h-screen">
       <div className="flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
@@ -45,7 +54,7 @@ const Layout = async ({ children }: LayoutProps) => {
 
         <nav className="flex flex-1 flex-col">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
-            <li>// chats that this user has</li>
+            <li>chats that this user has</li>
             <li>
               <div className="text-xs semibold leading-6 text-gray-400">
                 Overview
@@ -70,6 +79,13 @@ const Layout = async ({ children }: LayoutProps) => {
                   );
                 })}
               </ul>
+            </li>
+
+            <li>
+              <FriendRequestSidebarOptions
+                sessionId={session.user.id}
+                initialUnseenRequestCount={unseenRequestCount}
+              />
             </li>
 
             <li className="-mx-6 mt-auto flex items-center">
