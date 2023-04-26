@@ -50,6 +50,8 @@ export async function POST(req: Request) {
       idToAdd
     )) as 0 | 1;
 
+    console.log(isAlreadyFriends);
+
     if (isAlreadyFriends) {
       return new Response("Already friends with this user", { status: 400 });
     }
