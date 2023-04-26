@@ -6,6 +6,11 @@ import { notFound } from "next/navigation";
 import { FC, ReactNode } from "react";
 import Image from "next/image";
 import SignOutButton from "@/components/SignOutButton";
+<<<<<<< HEAD
+=======
+import FriendRequestSidebarOptions from "@/components/FriendRequestSidebarOptions";
+import { fetchRedis } from "@/helpers/redis";
+>>>>>>> 9606a74a42c8fd8c83a158089f294727e2b54efc
 
 interface LayoutProps {
   children: ReactNode;
@@ -32,6 +37,16 @@ const Layout = async ({ children }: LayoutProps) => {
 
   if (!session) notFound();
 
+<<<<<<< HEAD
+=======
+  const unseenRequestCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session.user.id}:incoming_friend_requests`
+    )) as User[]
+  ).length;
+
+>>>>>>> 9606a74a42c8fd8c83a158089f294727e2b54efc
   return (
     <div className="w-full flex h-screen">
       <div className="flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
@@ -45,7 +60,11 @@ const Layout = async ({ children }: LayoutProps) => {
 
         <nav className="flex flex-1 flex-col">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
+<<<<<<< HEAD
             <li>// chats that this user has</li>
+=======
+            <li>chats that this user has</li>
+>>>>>>> 9606a74a42c8fd8c83a158089f294727e2b54efc
             <li>
               <div className="text-xs semibold leading-6 text-gray-400">
                 Overview
@@ -72,6 +91,16 @@ const Layout = async ({ children }: LayoutProps) => {
               </ul>
             </li>
 
+<<<<<<< HEAD
+=======
+            <li>
+              <FriendRequestSidebarOptions
+                sessionId={session.user.id}
+                initialUnseenRequestCount={unseenRequestCount}
+              />
+            </li>
+
+>>>>>>> 9606a74a42c8fd8c83a158089f294727e2b54efc
             <li className="-mx-6 mt-auto flex items-center">
               <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
                 <div className="relative h-8 w-8 bg-gray-50">
