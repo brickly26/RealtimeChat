@@ -5,6 +5,7 @@ import { FC, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "./ui/Button";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 interface ChatInputProps {
   chatPartner: User;
@@ -19,8 +20,15 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
   const sendMessage = async () => {
     setIsLoading(true);
     try {
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
       await axios.post("/api/message/send", { text: input, chatId });
-    } catch (error) {}
+      setInput("");
+      textareaRef.current?.focus();
+    } catch {
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
