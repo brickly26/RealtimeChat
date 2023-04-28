@@ -28,6 +28,10 @@ const FriendRequestSidebarOptions: FC<FriendRequestSidebarOptionsProps> = ({
       setUnseenRequestCount((prev) => prev + 1);
     };
 
+    const newFriendHandler = () => {
+      setUnseenRequestCount((prev) => prev - 1);
+    };
+
     pusherClient.bind("incoming_friend_requests", friendRequestHandler);
 
     return () => {

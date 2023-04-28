@@ -50,6 +50,8 @@ const FriendRequests: FC<FriendRequestsProps> = ({
       prev.filter((request) => request.senderId !== senderId)
     );
 
+    console.log(friendRequests);
+
     router.refresh();
   };
 
