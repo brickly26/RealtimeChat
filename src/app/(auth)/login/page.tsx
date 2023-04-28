@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 
 interface pageProps {}
 
-const Page: FC<pageProps> = ({}) => {
+const Page: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loginWithGoogle = async () => {
